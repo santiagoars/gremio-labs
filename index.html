@@ -36,6 +36,8 @@ header{padding-top:28px;padding-bottom:28px;display:flex;align-items:center;gap:
 .logo{display:flex;align-items:center;gap:12px}
 .tile{flex-shrink:0;width:36px;height:36px;border-radius:8px;background:#05070f;display:flex;align-items:center;justify-content:center}
 nav{margin-left:auto;display:flex;align-items:center;gap:28px;font-size:15px}
+nav a{white-space:nowrap}
+@media (max-width:520px){nav a:first-child{display:none}}
 
 .hero{padding-top:72px;padding-bottom:96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px;align-items:center}
 .hero-copy{display:flex;flex-direction:column;gap:28px}
