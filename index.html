@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gremio Labs — IA hecha a la medida</title>
+<meta name="description" content="Diseñamos e implementamos soluciones de inteligencia artificial pensadas para tus procesos, tus datos y tu equipo. Nada genérico.">
+<meta property="og:title" content="Gremio Labs — IA hecha a la medida">
+<meta property="og:description" content="Consultoría de inteligencia artificial. Soluciones a la medida de tu empresa.">
+<meta property="og:image" content="/gremio-labs-icon-5a.png">
+<link rel="icon" href="/gremio-app-icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/gremio-labs-icon-5a.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:#fbfbfd;color:#05070f;font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#05070f;text-decoration:none}
+a:hover{color:#0a7f8c}
+h1,h2,h3,p{margin:0}
+.wrap{max-width:1120px;width:100%;margin:0 auto;padding-left:32px;padding-right:32px}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#5a6070}
+.h2{font-size:clamp(32px,4vw,48px);line-height:1.08;letter-spacing:-.035em;font-weight:700;text-wrap:balance}
+.word{letter-spacing:-.03em}.word b{font-weight:700}
+.btn{border-radius:999px}
+.btn-ink{background:#05070f;color:#fbfbfd}
+.btn-ink:hover{background:#1a2033;color:#fbfbfd}
+.btn-line{border:1px solid #d9dce5}
+.btn-line:hover{border-color:#05070f;color:#05070f}
+.stars{background-color:#05070f;border-radius:28px}
+section.rule{border-top:1px solid #e6e8ee}
+
+header{padding-top:28px;padding-bottom:28px;display:flex;align-items:center;gap:24px}
+.logo{display:flex;align-items:center;gap:12px}
+.tile{flex-shrink:0;width:36px;height:36px;border-radius:8px;background:#05070f;display:flex;align-items:center;justify-content:center}
+nav{margin-left:auto;display:flex;align-items:center;gap:28px;font-size:15px}
+
+.hero{padding-top:72px;padding-bottom:96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px;align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:28px}
+h1{font-size:clamp(44px,6vw,76px);line-height:1.02;letter-spacing:-.04em;font-weight:700;text-wrap:balance}
+.lead{font-size:19px;line-height:1.55;color:#3a3f4d;max-width:500px;text-wrap:pretty}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;padding-top:4px;font-size:16px}
+.ctas .btn-ink{padding:15px 26px;font-weight:500}
+.ctas .btn-line{padding:15px 22px}
+.art{aspect-ratio:1/1;max-height:480px;width:100%;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;
+  background-image:radial-gradient(1px 1px at 8% 18%,#ffffffcc,transparent),radial-gradient(1px 1px at 22% 78%,#ffffff99,transparent),radial-gradient(1.5px 1.5px at 37% 12%,#ffffffaa,transparent),radial-gradient(1px 1px at 55% 88%,#ffffff88,transparent),radial-gradient(1px 1px at 71% 22%,#ffffffbb,transparent),radial-gradient(1.5px 1.5px at 86% 64%,#ffffff99,transparent),radial-gradient(1px 1px at 93% 14%,#ffffff77,transparent),radial-gradient(1px 1px at 64% 52%,#ffffff55,transparent),radial-gradient(1px 1px at 12% 92%,#ffffff66,transparent),radial-gradient(ellipse 60% 60% at 50% 50%,#7cf5ff22,transparent 70%)}
+.hint{position:absolute;right:20px;bottom:18px;font-size:13px;color:#8a93ad;letter-spacing:.02em}
+
+.steps-wrap{padding-top:96px;padding-bottom:96px;display:flex;flex-direction:column;gap:56px}
+.steps-head{display:flex;flex-direction:column;gap:16px;max-width:640px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:40px}
+.step{display:flex;flex-direction:column;gap:14px;border-top:2px solid #05070f;padding-top:24px}
+.step span{font-size:14px;color:#0a7f8c}
+h3{font-size:24px;letter-spacing:-.02em;font-weight:700}
+.step p{font-size:17px;line-height:1.55;color:#3a3f4d;text-wrap:pretty}
+
+.story{padding-top:96px;padding-bottom:96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px;align-items:start}
+.story-term{display:flex;flex-direction:column;gap:6px}
+.story-term small{font-size:14px;color:#5a6070}
+.story p{font-size:clamp(20px,2.2vw,26px);line-height:1.45;letter-spacing:-.01em;text-wrap:pretty}
+
+#contacto{padding:0 32px 32px}
+.cta{max-width:1120px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(28px,6vw,80px);color:#e8ecff;display:flex;flex-direction:column;gap:28px;align-items:flex-start;
+  background-image:radial-gradient(1px 1px at 6% 22%,#ffffffbb,transparent),radial-gradient(1px 1px at 18% 80%,#ffffff88,transparent),radial-gradient(1.5px 1.5px at 41% 14%,#ffffffaa,transparent),radial-gradient(1px 1px at 58% 70%,#ffffff77,transparent),radial-gradient(1px 1px at 77% 18%,#ffffffbb,transparent),radial-gradient(1.5px 1.5px at 90% 76%,#ffffff99,transparent),radial-gradient(ellipse 50% 90% at 85% 50%,#7cf5ff1f,transparent 70%)}
+.cta h2{font-size:clamp(34px,4.6vw,56px);line-height:1.05;letter-spacing:-.035em;font-weight:700;max-width:720px;text-wrap:balance}
+.cta p{font-size:18px;line-height:1.55;color:#b9c0d6;max-width:520px;text-wrap:pretty}
+.cta a{background:#7cf5ff;color:#05070f;padding:16px 28px;font-size:17px;font-weight:500}
+.cta a:hover{background:#e8ecff;color:#05070f}
+
+footer{padding-top:28px;padding-bottom:40px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;font-size:14px;color:#5a6070}
+footer .word{letter-spacing:-.02em;color:#05070f}
+footer span:last-child{margin-left:auto}
+
+/* Logo "assemble" animation */
+@keyframes gl-in{from{opacity:0;transform:translate(var(--dx,0),var(--dy,0))}to{opacity:1;transform:none}}
+@keyframes gl-pop{0%{opacity:0;transform:scale(0)}65%{opacity:1;transform:scale(1.3)}100%{opacity:1;transform:scale(1)}}
+@keyframes gl-halo{0%{opacity:0;transform:scale(.6)}40%{opacity:.7}100%{opacity:0;transform:scale(2.4)}}
+.mark{width:42%;overflow:visible}
+.mark .bar{animation:gl-in 750ms cubic-bezier(.2,.9,.25,1) var(--d) both}
+.mark .spark,.mark .halo{transform-box:fill-box;transform-origin:center}
+.mark .spark{animation:gl-pop 520ms cubic-bezier(.3,1.4,.5,1) 1080ms both}
+.mark .halo{opacity:0;animation:gl-halo 1100ms ease-out 1260ms both}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mark *{animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <a href="#" class="logo" aria-label="Gremio Labs, inicio">
+    <span class="tile"><svg width="20" height="20" viewBox="-2 -2 92 92" aria-hidden="true"><rect x="23" y="0" width="65" height="19" rx="3" fill="#e8ecff"/><rect x="0" y="0" width="19" height="88" rx="3" fill="#e8ecff"/><rect x="23" y="69" width="65" height="19" rx="3" fill="#e8ecff"/><rect x="69" y="46" width="19" height="19" rx="3" fill="#e8ecff"/><rect x="46" y="46" width="19" height="19" rx="3" fill="#7cf5ff"/></svg></span>
+    <span class="word" style="font-size:22px"><b>gremio</b>labs</span>
+  </a>
+  <nav>
+    <a href="#como">Cómo trabajamos</a>
+    <a href="#contacto" class="btn btn-ink" style="padding:10px 18px">Conversemos</a>
+  </nav>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Consultoría de inteligencia artificial</div>
+      <h1>IA hecha a la medida de tu empresa.</h1>
+      <p class="lead">Diseñamos e implementamos soluciones de inteligencia artificial pensadas para tus procesos, tus datos y tu equipo. Nada genérico.</p>
+      <div class="ctas">
+        <a href="#contacto" class="btn btn-ink">Agenda una conversación</a>
+        <a href="#como" class="btn btn-line">Cómo trabajamos</a>
+      </div>
+    </div>
+    <div class="art stars" id="art" role="button" tabindex="0" aria-label="Repetir animación del logo">
+      <svg class="mark" viewBox="-2 -2 92 92" aria-hidden="true">
+        <rect class="bar" style="--dy:-46px;--d:300ms" x="23" y="0" width="65" height="19" rx="3" fill="#e8ecff"/>
+        <rect class="bar" style="--dx:-46px;--d:410ms" x="0" y="0" width="19" height="88" rx="3" fill="#e8ecff"/>
+        <rect class="bar" style="--dy:46px;--d:520ms" x="23" y="69" width="65" height="19" rx="3" fill="#e8ecff"/>
+        <rect class="bar" style="--dx:46px;--d:630ms" x="69" y="46" width="19" height="19" rx="3" fill="#e8ecff"/>
+        <rect class="halo" x="46" y="46" width="19" height="19" rx="5" fill="none" stroke="#7cf5ff" stroke-width="1.5"/>
+        <rect class="spark" x="46" y="46" width="19" height="19" rx="3" fill="#7cf5ff"/>
+      </svg>
+      <div class="hint">Clic para repetir</div>
+    </div>
+  </section>
+
+  <section id="como" class="rule">
+    <div class="wrap steps-wrap">
+      <div class="steps-head">
+        <div class="eyebrow">Cómo trabajamos</div>
+        <h2 class="h2">Cada empresa es distinta. Su IA también debería serlo.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span>01</span><h3>Entendemos</h3><p>Nos sentamos con tu equipo para conocer cómo trabajan y dónde la IA puede aportar valor real.</p></div>
+        <div class="step"><span>02</span><h3>Diseñamos</h3><p>Construimos una solución específica para tus procesos y tus datos, no una plantilla adaptada.</p></div>
+        <div class="step"><span>03</span><h3>Implementamos</h3><p>La integramos en tu operación, medimos resultados y la seguimos ajustando contigo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rule">
+    <div class="wrap story">
+      <div class="story-term">
+        <div class="h2">gremio</div>
+        <small>sustantivo · /ˈɡɾe.mjo/</small>
+      </div>
+      <p>Una comunidad de artesanos que dominan un oficio. Así entendemos la inteligencia artificial: como un oficio que se trabaja con cuidado, para cada cliente.</p>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="cta stars">
+      <h2>¿Qué podría hacer la IA por tu empresa?</h2>
+      <p>Cuéntanos cómo trabajan hoy. En una primera conversación te diremos dónde vemos oportunidades, sin compromiso.</p>
+      <a href="mailto:hola@gremiolabs.com" class="btn">hola@gremiolabs.com</a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span class="word"><b>gremio</b>labs</span>
+  <span>© 2026 Gremio Labs</span>
+</footer>
+
+<script>
+// Replay the logo animation: swapping in a clone restarts its CSS animations.
+const art = document.getElementById('art');
+const replay = () => { const m = art.querySelector('svg'); m.replaceWith(m.cloneNode(true)); };
+art.addEventListener('click', replay);
+art.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); replay(); } });
+</script>
+</body>
+</html>
