@@ -114,6 +114,13 @@ ol,ul{margin:0;padding:0;list-style:none}
 .faq details[open]>summary::after{transform:rotate(45deg)}
 .faq details p{padding:0 36px 24px 0}
 
+/* Scroll reveal: the script adds these classes, so nothing hides without JS */
+.reveal{transition:opacity 700ms ease var(--d),transform 900ms cubic-bezier(.2,.8,.2,1) var(--d)}
+.reveal-pending{opacity:0;transform:translateY(28px)}
+.bubbles p{transform-origin:right bottom}
+.bubbles p.reveal-pending{transform:translate(18px,10px) scale(.97)}
+.doors.reveal-pending,.cta.reveal-pending{transform:translateY(40px) scale(.98)}
+
 .story{padding-top:96px;padding-bottom:96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px;align-items:start}
 .story-term{display:flex;flex-direction:column;gap:6px}
 .story-term small{font-size:14px;color:#5a6070}
@@ -399,6 +406,22 @@ const art = document.getElementById('art');
 const replay = () => { const m = art.querySelector('svg'); m.replaceWith(m.cloneNode(true)); };
 art.addEventListener('click', replay);
 art.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); replay(); } });
+
+// Scroll reveal: each element fades in once, the first time it scrolls into view.
+// Anything already on the first screen is left alone; siblings are staggered.
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.remove('reveal-pending'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -12% 0px' });
+  const els = [...document.querySelectorAll('.head, .card, .areas > li, .door, .timeline > li, .col, .story > *, .faq details, .bubbles p, .doors, .cta')];
+  for (const el of els) {
+    if (el.getBoundingClientRect().top < innerHeight * 0.9) continue;
+    const i = [...el.parentElement.children].filter(c => els.includes(c)).indexOf(el);
+    el.style.setProperty('--d', Math.min(i, 5) * (el.matches('.bubbles p') ? 140 : 90) + 'ms');
+    el.classList.add('reveal', 'reveal-pending');
+    io.observe(el);
+  }
+}
 </script>
 </body>
 </html>
