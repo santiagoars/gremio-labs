@@ -32,12 +32,14 @@ h1,h2,h3,p{margin:0}
 .stars{background-color:#05070f;border-radius:28px}
 section.rule{border-top:1px solid #e6e8ee}
 
-header{padding-top:28px;padding-bottom:28px;display:flex;align-items:center;gap:24px}
+header{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
 .logo{display:flex;align-items:center;gap:12px}
 .tile{flex-shrink:0;width:36px;height:36px;border-radius:8px;background:#05070f;display:flex;align-items:center;justify-content:center}
 nav{margin-left:auto;display:flex;align-items:center;gap:28px;font-size:15px}
 nav a{white-space:nowrap}
-@media (max-width:520px){nav a:first-child{display:none}}
+.chips{display:none;width:100%;margin:0 -32px;padding:0 32px;box-sizing:content-box;gap:8px;overflow-x:auto;scrollbar-width:none;font-size:14px}
+.chips a{flex-shrink:0;padding:8px 14px;border:1px solid #d9dce5;border-radius:999px}
+@media (max-width:759px){nav .link{display:none}.chips{display:flex}}
 
 .hero{padding-top:clamp(8px,4vw,72px);padding-bottom:clamp(64px,8vw,96px);display:flex;flex-direction:row-reverse;flex-wrap:wrap;gap:clamp(32px,5vw,56px);align-items:center}
 .hero>*{flex:1 1 420px;min-width:min(100%,300px)}
@@ -51,13 +53,66 @@ h1{font-size:clamp(44px,6vw,76px);line-height:1.02;letter-spacing:-.04em;font-we
   background-image:radial-gradient(1px 1px at 8% 18%,#ffffffcc,transparent),radial-gradient(1px 1px at 22% 78%,#ffffff99,transparent),radial-gradient(1.5px 1.5px at 37% 12%,#ffffffaa,transparent),radial-gradient(1px 1px at 55% 88%,#ffffff88,transparent),radial-gradient(1px 1px at 71% 22%,#ffffffbb,transparent),radial-gradient(1.5px 1.5px at 86% 64%,#ffffff99,transparent),radial-gradient(1px 1px at 93% 14%,#ffffff77,transparent),radial-gradient(1px 1px at 64% 52%,#ffffff55,transparent),radial-gradient(1px 1px at 12% 92%,#ffffff66,transparent),radial-gradient(ellipse 60% 60% at 50% 50%,#7cf5ff22,transparent 70%)}
 .hint{position:absolute;right:20px;bottom:18px;font-size:13px;color:#8a93ad;letter-spacing:.02em}
 
-.steps-wrap{padding-top:96px;padding-bottom:96px;display:flex;flex-direction:column;gap:56px}
-.steps-head{display:flex;flex-direction:column;gap:16px;max-width:640px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:40px}
-.step{display:flex;flex-direction:column;gap:14px;border-top:2px solid #05070f;padding-top:24px}
-.step span{font-size:14px;color:#0a7f8c}
+/* Shared section shell */
 h3{font-size:24px;letter-spacing:-.02em;font-weight:700}
-.step p{font-size:17px;line-height:1.55;color:#3a3f4d;text-wrap:pretty}
+ol,ul{margin:0;padding:0;list-style:none}
+.in{padding-top:clamp(64px,9vw,96px);padding-bottom:clamp(64px,9vw,96px)}
+.stack{display:flex;flex-direction:column;gap:56px}
+.head{display:flex;flex-direction:column;gap:16px;max-width:640px}
+.intro{font-size:19px;line-height:1.55;color:#3a3f4d;text-wrap:pretty}
+.body{font-size:17px;line-height:1.55;color:#3a3f4d;text-wrap:pretty}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--min)),1fr));gap:var(--gap)}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px 64px}
+.split>.head{position:sticky;top:32px;align-self:start}
+
+/* Qué hacemos */
+.card{background:#fff;border:1px solid #e6e8ee;border-radius:28px;padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:28px}
+.card-head{display:flex;flex-direction:column;gap:12px}
+.title{display:flex;align-items:center;gap:12px}
+.title svg{flex-shrink:0}
+.bubbles{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.bubbles p{max-width:92%;background:#fbfbfd;border:1px solid #e6e8ee;border-radius:20px 20px 6px 20px;padding:12px 18px;font-size:16px;line-height:1.45;text-wrap:pretty}
+.bubbles.dark p{background:#05070f;border-color:#05070f;color:#e8ecff}
+
+/* Por área */
+.areas>li{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px 48px;padding:32px 0;border-top:1px solid #e6e8ee}
+.areas>li:last-child{border-bottom:1px solid #e6e8ee}
+.area{display:flex;flex-direction:column;gap:8px}
+.area p{font-size:17px;line-height:1.5;color:#0a7f8c;text-wrap:pretty}
+.ticks{display:flex;flex-direction:column;gap:10px;font-size:16px;line-height:1.5;color:#3a3f4d}
+.ticks li{display:flex;gap:12px}
+.ticks li::before{content:"";flex-shrink:0;width:7px;height:7px;border-radius:2px;background:#05070f;margin-top:9px}
+
+/* Dónde se usa */
+.doors{padding:clamp(32px,6vw,72px) clamp(24px,5vw,64px);color:#e8ecff;display:flex;flex-direction:column;gap:48px;
+  background-image:radial-gradient(1px 1px at 7% 16%,#ffffffbb,transparent),radial-gradient(1px 1px at 24% 84%,#ffffff88,transparent),radial-gradient(1.5px 1.5px at 46% 10%,#ffffffaa,transparent),radial-gradient(1px 1px at 62% 92%,#ffffff77,transparent),radial-gradient(1px 1px at 81% 12%,#ffffffbb,transparent),radial-gradient(1.5px 1.5px at 94% 58%,#ffffff99,transparent),radial-gradient(ellipse 50% 70% at 15% 20%,#7cf5ff1a,transparent 70%)}
+.doors .eyebrow,.doors .intro{color:#b9c0d6}
+.door{border:1px solid #ffffff24;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.door h3{font-size:22px}
+.door p{font-size:16px;line-height:1.5;color:#b9c0d6;text-wrap:pretty}
+.doors .foot{font-size:15px;line-height:1.5;color:#b9c0d6}
+
+/* Cómo trabajamos */
+.timeline li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:20px}
+.rail{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:4px;font-size:14px;color:#0a7f8c}
+.rail::after{content:"";flex:1;width:1px;background:#d9dce5}
+.step{display:flex;flex-direction:column;gap:10px;padding-bottom:40px}
+.timeline li:last-child .rail::after{display:none}
+.timeline li:last-child .step{padding-bottom:0}
+
+/* Seguridad */
+.col{display:flex;flex-direction:column;gap:12px;border-top:1px solid #d9dce5;padding-top:24px}
+.col h3{line-height:1.2;text-wrap:balance}
+
+/* FAQ */
+.faq{border-top:1px solid #e6e8ee}
+.faq details{border-bottom:1px solid #e6e8ee}
+.faq summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;font-size:19px;font-weight:500;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex-shrink:0;width:16px;height:16px;transition:transform .2s;
+  background:linear-gradient(#05070f,#05070f) center/2px 16px no-repeat,linear-gradient(#05070f,#05070f) center/16px 2px no-repeat}
+.faq details[open]>summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 36px 24px 0}
 
 .story{padding-top:96px;padding-bottom:96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px;align-items:start}
 .story-term{display:flex;flex-direction:column;gap:6px}
@@ -85,7 +140,7 @@ footer span:last-child{margin-left:auto}
 .mark .spark,.mark .halo{transform-box:fill-box;transform-origin:center}
 .mark .spark{animation:gl-pop 520ms cubic-bezier(.3,1.4,.5,1) 1080ms both}
 .mark .halo{opacity:0;animation:gl-halo 1100ms ease-out 1260ms both}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mark *{animation:none!important}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -96,8 +151,15 @@ footer span:last-child{margin-left:auto}
     <span class="word" style="font-size:22px"><b>gremio</b>labs</span>
   </a>
   <nav>
-    <a href="#como">Cómo trabajamos</a>
+    <a href="#que-hacemos" class="link">Qué hacemos</a>
+    <a href="#como" class="link">Cómo trabajamos</a>
+    <a href="#faq" class="link">Preguntas</a>
     <a href="#contacto" class="btn btn-ink" style="padding:10px 18px">Conversemos</a>
+  </nav>
+  <nav class="chips" aria-label="Secciones">
+    <a href="#que-hacemos">Qué hacemos</a>
+    <a href="#como">Cómo trabajamos</a>
+    <a href="#faq">Preguntas</a>
   </nav>
 </header>
 
@@ -125,16 +187,164 @@ footer span:last-child{margin-left:auto}
     </div>
   </section>
 
+  <section id="que-hacemos" class="rule">
+    <div class="wrap in stack">
+      <div class="head">
+        <div class="eyebrow">Qué hacemos</div>
+        <h2 class="h2">Primero encuentra. Después actúa.</h2>
+        <p class="intro">Conectamos tus documentos, tu ERP y tus bases de datos en un solo asistente. Le preguntas como a un compañero que sabe dónde está todo, y además puede hacer el trabajo.</p>
+      </div>
+      <div class="grid" style="--min:420px;--gap:24px">
+        <div class="card">
+          <div class="card-head">
+            <div class="title">
+              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#05070f"/><rect x="23" width="19" height="19" rx="3" fill="#05070f"/><rect y="23" width="19" height="19" rx="3" fill="#05070f"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#0a7f8c"/></svg>
+              <h3>Consulta</h3>
+            </div>
+            <p class="body">Respuestas en segundos sobre tu propia información.</p>
+          </div>
+          <div class="bubbles">
+            <p>¿Dónde está la constancia de situación fiscal de Grupo Ruiz?</p>
+            <p>¿Cuántos días de vacaciones le quedan a Mariana?</p>
+            <p>¿Qué le compramos a este proveedor el mes pasado?</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="title">
+              <svg width="31" height="9" viewBox="0 0 65 19" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#05070f"/><rect x="23" width="19" height="19" rx="3" fill="#05070f"/><rect x="46" width="19" height="19" rx="3" fill="#0a7f8c"/></svg>
+              <h3>Acción</h3>
+            </div>
+            <p class="body">Las tareas que hoy te quitan horas, hechas por el asistente.</p>
+          </div>
+          <div class="bubbles dark">
+            <p>Concilia las facturas PPD de septiembre con sus complementos de pago.</p>
+            <p>Apártale a Mariana del 20 al 24 de diciembre.</p>
+            <p>Arma el reporte mensual con el formato de siempre.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rule">
+    <div class="wrap in stack" style="gap:40px">
+      <div class="head">
+        <div class="eyebrow">Por área</div>
+        <h2 class="h2">Empieza donde más tiempo se pierde.</h2>
+        <p class="intro">Cada implementación es distinta, pero estos son los problemas que más vemos.</p>
+      </div>
+      <ul class="areas">
+        <li>
+          <div class="area"><h3>Contabilidad y fiscal</h3><p>Encuentra cualquier documento sin abrir veinte carpetas.</p></div>
+          <ul class="ticks">
+            <li>Ubica CFDI, constancias y declaraciones por cliente o por periodo.</li>
+            <li>Concilia facturas PPD con sus complementos de pago.</li>
+            <li>Avisa antes de que venza una e.firma o un sello digital.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="area"><h3>Ventas</h3><p>Sabe a quién le toca comprar hoy.</p></div>
+          <ul class="ticks">
+            <li>Clientes que ya deberían haber vuelto a comprar, según su frecuencia.</li>
+            <li>Clientes dormidos: “compra cada 8 días y lleva 74 sin pedir”.</li>
+            <li>Mensaje de WhatsApp listo para enviar, con las piezas que suele pedir.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="area"><h3>Recursos humanos</h3><p>Responde en segundos lo que hoy toma una hora.</p></div>
+          <ul class="ticks">
+            <li>Saldo de vacaciones e incidencias de cada persona.</li>
+            <li>Registra los días aprobados directo en tu sistema.</li>
+            <li>Cada quien ve solo la información que le corresponde.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="area"><h3>Operaciones y ERP</h3><p>Tu ERP, en tu idioma.</p></div>
+          <ul class="ticks">
+            <li>Traduce claves como “MPT-Z-342” a qué es, quién lo pidió y en qué va.</li>
+            <li>Consulta Odoo u otro ERP sin saber en qué pantalla buscar.</li>
+            <li>Estatus de compras y órdenes sin preguntarle a otra área.</li>
+          </ul>
+        </li>
+        <li>
+          <div class="area"><h3>Tienda en línea</h3><p>Que tus clientes encuentren lo que buscan.</p></div>
+          <ul class="ticks">
+            <li>Búsqueda en lenguaje natural: “bujía para moto de 150 cc”.</li>
+            <li>Productos sugeridos al agregar algo al carrito.</li>
+            <li>Un asistente que resuelve dudas de compatibilidad y existencias.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rule">
+    <div class="wrap in">
+      <div class="doors stars">
+        <div class="head">
+          <div class="eyebrow">Dónde se usa</div>
+          <h2 class="h2">Llega a donde tu equipo ya trabaja.</h2>
+          <p class="intro">Un mismo cerebro con varias puertas de entrada. Usa una o todas.</p>
+        </div>
+        <!-- Two pairs so the tiles wrap 4 → 2 → 1, never 3 + 1 -->
+        <div class="grid" style="--min:440px;--gap:16px">
+          <div class="grid" style="--min:200px;--gap:16px">
+            <div class="door">
+              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#7cf5ff"/><rect x="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/></svg>
+              <h3>WhatsApp</h3>
+              <p>Pregunta desde el celular, como le escribirías a un compañero.</p>
+            </div>
+            <div class="door">
+              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" width="19" height="19" rx="3" fill="#7cf5ff"/><rect y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/></svg>
+              <h3>Chat web</h3>
+              <p>Un chat con tu marca y con historial de conversaciones.</p>
+            </div>
+          </div>
+          <div class="grid" style="--min:200px;--gap:16px">
+            <div class="door">
+              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect y="23" width="19" height="19" rx="3" fill="#7cf5ff"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/></svg>
+              <h3>Tu asistente de IA</h3>
+              <p>Un conector para Claude, ChatGPT, Gemini o Copilot. Si tu equipo ya paga una suscripción, la aprovecha.</p>
+            </div>
+            <div class="door">
+              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#7cf5ff"/></svg>
+              <h3>Dashboard</h3>
+              <p>Para quien prefiere ver la información en tablas y gráficas.</p>
+            </div>
+          </div>
+        </div>
+        <p class="foot">Todas leen la misma información y respetan los mismos permisos.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="como" class="rule">
-    <div class="wrap steps-wrap">
-      <div class="steps-head">
+    <div class="wrap in split">
+      <div class="head">
         <div class="eyebrow">Cómo trabajamos</div>
         <h2 class="h2">Cada empresa es distinta. Su IA también debería serlo.</h2>
       </div>
-      <div class="steps">
-        <div class="step"><span>01</span><h3>Entendemos</h3><p>Nos sentamos con tu equipo para conocer cómo trabajan y dónde la IA puede aportar valor real.</p></div>
-        <div class="step"><span>02</span><h3>Diseñamos</h3><p>Construimos una solución específica para tus procesos y tus datos, no una plantilla adaptada.</p></div>
-        <div class="step"><span>03</span><h3>Implementamos</h3><p>La integramos en tu operación, medimos resultados y la seguimos ajustando contigo.</p></div>
+      <ol class="timeline">
+        <li><div class="rail">01</div><div class="step"><h3>Entendemos</h3><p class="body">Nos sentamos con las personas que hacen el trabajo para entender qué hacen, con qué información y dónde se atoran.</p></div></li>
+        <li><div class="rail">02</div><div class="step"><h3>Organizamos tu información</h3><p class="body">Catalogamos tus documentos y sistemas en fichas: qué es cada archivo, a quién menciona, qué cifras tiene y dónde está. Así el asistente responde rápido, sin leer todo cada vez.</p></div></li>
+        <li><div class="rail">03</div><div class="step"><h3>Construimos y verificamos</h3><p class="body">Armamos el asistente para tus procesos y lo probamos con preguntas reales de tu equipo antes de entregarlo.</p></div></li>
+        <li><div class="rail">04</div><div class="step"><h3>Acompañamos la adopción</h3><p class="body">El primer mes trabajamos junto a tu equipo: cómo preguntarle, qué tareas delegarle y dónde ahorra más tiempo.</p></div></li>
+        <li><div class="rail">05</div><div class="step"><h3>Mejora continua</h3><p class="body">Cada noche se integra lo nuevo. Si una respuesta sale mal, tu equipo la marca y la corregimos.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="rule">
+    <div class="wrap in stack">
+      <div class="head">
+        <div class="eyebrow">Seguridad y permisos</div>
+        <h2 class="h2">Cada quien ve solo lo que le corresponde.</h2>
+      </div>
+      <div class="grid" style="--min:280px;--gap:40px">
+        <div class="col"><h3>Respeta los permisos que ya tienes</h3><p class="body">Si alguien no puede abrir un archivo en Google Workspace o Microsoft 365, el asistente tampoco se lo muestra. Ni siquiera le dice que existe.</p></div>
+        <div class="col"><h3>Un administrador decide</h3><p class="body">Define qué áreas consulta cada persona. Finanzas puede ver las cuentas sin ver la nómina de RH.</p></div>
+        <div class="col"><h3>Tú eliges qué se conecta</h3><p class="body">Conectamos solo las carpetas y sistemas que tú decidas. Lo sensible se queda fuera desde el inicio.</p></div>
       </div>
     </div>
   </section>
@@ -146,6 +356,26 @@ footer span:last-child{margin-left:auto}
         <small>sustantivo · /ˈɡɾe.mjo/</small>
       </div>
       <p>Una comunidad de artesanos que dominan un oficio. Así entendemos la inteligencia artificial: como un oficio que se trabaja con cuidado, para cada cliente.</p>
+    </div>
+  </section>
+
+  <section id="faq" class="rule">
+    <div class="wrap in split" style="gap:40px 64px">
+      <div class="head">
+        <div class="eyebrow">Preguntas frecuentes</div>
+        <h2 class="h2">Lo que nos preguntan antes de empezar.</h2>
+      </div>
+      <div class="faq">
+        <details><summary>¿Mi información está segura?</summary><p class="body">Solo conectamos lo que tú autorizas y el asistente respeta los permisos de cada persona. Los documentos sensibles pueden quedarse fuera desde el inicio.</p></details>
+        <details><summary>¿Qué inteligencia artificial usan?</summary><p class="body">Trabajamos principalmente con los modelos Claude de Anthropic y elegimos el adecuado para cada tarea: uno rápido para lo sencillo y uno más potente cuando la precisión importa, como con datos contables.</p></details>
+        <details><summary>¿Necesito pagar ChatGPT o Claude?</summary><p class="body">No. Puedes usar nuestro chat o WhatsApp sin ninguna suscripción. Si tu equipo ya paga una, la conectamos para que la aproveche y tu mensualidad baje.</p></details>
+        <details><summary>¿Cuánto tarda la implementación?</summary><p class="body">Un primer prototipo con tus datos puede estar listo en días. El tiempo total depende de cuánta información haya y de cuántos sistemas conectemos. Te damos fechas después de la primera conversación.</p></details>
+        <details><summary>¿Y si mi equipo no lo usa?</summary><p class="body">Es el riesgo más común, por eso la adopción es parte del servicio. El primer mes estamos con tu equipo, enseñando con sus tareas reales.</p></details>
+        <details><summary>¿Qué pasa si se equivoca?</summary><p class="body">Lo probamos con preguntas reales antes de entregarlo. Si en el día a día una respuesta sale mal, tu equipo la marca y la corregimos.</p></details>
+        <details><summary>¿Funciona con mis sistemas?</summary><p class="body">Si tu información vive en documentos (Google Drive, OneDrive, un servidor) o en una base de datos (Odoo u otro ERP, SQL, Supabase), casi seguro que sí.</p></details>
+        <!-- FLAG pricing: copy not confirmed yet. Add the `hidden` attribute to this <details> to hide it. -->
+        <details id="faq-precio"><summary>¿Cuánto cuesta?</summary><p class="body">Un pago inicial por la implementación y una mensualidad según el uso. Cada propuesta es a la medida: escríbenos y te damos números.</p></details>
+      </div>
     </div>
   </section>
 
