@@ -31,8 +31,13 @@ h1,h2,h3,p{margin:0}
 .btn-line:hover{border-color:#05070f;color:#05070f}
 .stars{background-color:#05070f;border-radius:28px}
 section.rule{border-top:1px solid #e6e8ee}
+[id]{scroll-margin-top:84px}
 
-header{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
+/* Sticky header. When it shrinks, margin-bottom grows by the same 28px so the page below doesn't jump. */
+.top{position:sticky;top:0;z-index:20;background:rgba(251,251,253,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s ease,margin .2s ease}
+.top.scrolled{border-bottom-color:#e6e8ee;margin-bottom:28px}
+.topbar{padding-top:28px;padding-bottom:28px;display:flex;align-items:center;gap:24px;transition:padding .2s ease}
+.scrolled .topbar{padding-top:14px;padding-bottom:14px}
 .logo{display:flex;align-items:center;gap:12px}
 .tile{flex-shrink:0;width:36px;height:36px;border-radius:8px;background:#05070f;display:flex;align-items:center;justify-content:center}
 nav{margin-left:auto;display:flex;align-items:center;gap:28px;font-size:15px}
@@ -42,7 +47,13 @@ nav a{white-space:nowrap}
 .hero{padding-top:clamp(8px,4vw,72px);padding-bottom:clamp(64px,8vw,96px);display:flex;flex-direction:row-reverse;flex-wrap:wrap;gap:clamp(32px,5vw,56px);align-items:center}
 .hero>*{flex:1 1 420px;min-width:min(100%,300px)}
 .hero-copy{display:flex;flex-direction:column;gap:28px}
-h1{font-size:clamp(44px,6vw,76px);line-height:1.02;letter-spacing:-.04em;font-weight:700;text-wrap:balance}
+h1{font-size:clamp(44px,6vw,76px);line-height:1.02;letter-spacing:-.04em;font-weight:700}
+h1>span:first-child{display:block;text-wrap:balance}
+/* Rotating word: all words stacked in one cell, so the slot keeps the tallest one's height */
+.words{display:grid;overflow:hidden;color:#0a7f8c;padding-bottom:.1em;margin-bottom:-.1em}
+.words>span{grid-area:1/1;opacity:0;transform:translateY(.7em);transition:opacity 450ms ease,transform 600ms cubic-bezier(.2,.8,.2,1)}
+.words>.on{opacity:1;transform:none}
+.words>.out{transform:translateY(-.7em)}
 .lead{font-size:19px;line-height:1.55;color:#3a3f4d;max-width:500px;text-wrap:pretty}
 .ctas{display:flex;flex-wrap:wrap;gap:12px;padding-top:4px;font-size:16px}
 .ctas .btn-ink{padding:15px 26px;font-weight:500}
@@ -63,7 +74,65 @@ ol,ul{margin:0;padding:0;list-style:none}
 .split{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:48px 64px}
 .split>.head{align-self:start}
 /* Pin the header only once the two columns sit side by side (2×360 + 64 gap + 64 padding) */
-@media (min-width:848px){.split>.head{position:sticky;top:32px}}
+@media (min-width:848px){.pin>.head{position:sticky;top:104px}}
+
+/* Así se ve (demo) */
+.demo{display:flex;flex-direction:column;gap:16px;min-width:0}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{font:inherit;font-size:15px;padding:9px 18px;border-radius:999px;cursor:pointer;border:1px solid #d9dce5;background:transparent;color:#05070f;transition:background .2s,color .2s,border-color .2s}
+.tabs [aria-selected=true]{background:#05070f;border-color:#05070f;color:#fbfbfd}
+.window{background:#fff;border:1px solid #e6e8ee;border-radius:28px;overflow:hidden;display:flex;flex-direction:column}
+.convos{display:grid;padding:clamp(20px,4vw,32px)}
+.convo{grid-area:1/1;display:flex;flex-direction:column;gap:20px;min-width:0;visibility:hidden}
+.convo.active{visibility:visible}
+.q{align-self:flex-end;max-width:88%;background:#fbfbfd;border:1px solid #e6e8ee;border-radius:20px 20px 6px 20px;padding:12px 18px;font-size:16px;line-height:1.45;text-wrap:pretty}
+.bot{display:flex;flex-direction:column;gap:14px;min-width:0}
+.who{display:flex;align-items:center;gap:10px}
+.avatar{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:#05070f;display:flex;align-items:center;justify-content:center}
+.who-label{display:grid;align-items:center;font-size:14px;color:#5a6070}
+.who-label>*{grid-area:1/1}
+.dots{display:inline-flex;gap:4px;align-items:center;height:14px;opacity:0;transition:opacity 200ms ease}
+.typing .dots{opacity:1}
+.dots i{width:6px;height:6px;border-radius:2px;background:#8a93ad;animation:gl-dot 900ms ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:150ms}
+.dots i:nth-child(3){animation-delay:300ms}
+@keyframes gl-dot{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.ans{display:flex;flex-direction:column;gap:12px}
+.ans p{font-size:16px;line-height:1.5;text-wrap:pretty}
+.rows{border:1px solid #e6e8ee;border-radius:16px}
+.rows>div{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;padding:10px 14px;font-size:15px;line-height:1.4;font-variant-numeric:tabular-nums}
+.rows>div+div{border-top:1px solid #e6e8ee}
+.rows b{font-weight:500}
+.rows span{color:#5a6070}
+.rows span+span{margin-left:auto;color:#3a3f4d}
+.src{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.45;color:#5a6070}
+.src svg{flex-shrink:0;margin-top:4px}
+.act{font:inherit;font-size:15px;color:#05070f;background:transparent;padding:10px 18px;border-radius:999px;border:1px solid #d9dce5;cursor:default;text-align:left}
+.inputbar{border-top:1px solid #e6e8ee;padding:14px clamp(20px,4vw,32px);display:flex;align-items:center;gap:12px;font-size:15px;color:#8a93ad}
+.inputbar span{flex:1}
+.note{font-size:13px;color:#5a6070}
+/* Steps are hidden only once the script adds .js, so the demo is fully readable without it */
+.demo.js [data-s]{opacity:0;transform:translateY(8px);transition:opacity 400ms ease,transform 500ms cubic-bezier(.2,.8,.2,1)}
+.demo.js [data-fade]{transform:none;transition:opacity 300ms ease}
+.demo.js [data-s].shown{opacity:1;transform:none}
+
+/* Pregúntale lo que sea (marquee) */
+.qsec{padding:clamp(64px,9vw,96px) 0;display:flex;flex-direction:column;gap:32px}
+.marquee{overflow:hidden;display:flex;flex-direction:column;gap:12px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;width:max-content;animation:gl-marq 60s linear infinite}
+.track.rev{animation-direction:reverse}
+.track>div{display:flex;gap:12px;padding-right:12px}
+.marquee:hover .track{animation-play-state:paused}
+.chip{flex-shrink:0;white-space:nowrap;background:#fff;border:1px solid #e6e8ee;border-radius:999px;padding:10px 18px;font-size:16px}
+@keyframes gl-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* Reduced motion: the first row becomes a wrapped grid */
+@media (prefers-reduced-motion:reduce){
+  .marquee{-webkit-mask-image:none;mask-image:none;max-width:1120px;width:100%;margin:0 auto;padding:0 32px}
+  .track{width:auto}
+  .track.rev,.track>[aria-hidden]{display:none}
+  .track>div{flex-wrap:wrap;padding-right:0}
+  .chip{white-space:normal;border-radius:20px;line-height:1.4}
+}
 
 /* Qué hacemos */
 .card{background:#fff;border:1px solid #e6e8ee;border-radius:28px;padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;gap:28px}
@@ -90,7 +159,15 @@ ol,ul{margin:0;padding:0;list-style:none}
 .door{border:1px solid #ffffff24;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px}
 .door h3{font-size:22px}
 .door p{font-size:16px;line-height:1.5;color:#b9c0d6;text-wrap:pretty}
-.doors .foot{font-size:15px;line-height:1.5;color:#b9c0d6}
+/* Icons are self-hosted SVGs used as masks, so one color (cyan) paints all of them */
+.ico{width:44px;height:44px;border-radius:12px;background:#ffffff0f;border:1px solid #ffffff24;display:flex;align-items:center;justify-content:center}
+.mi{flex-shrink:0;width:22px;height:22px;background:#7cf5ff;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+.strip{border-top:1px solid #ffffff24;padding-top:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.strip p{font-size:16px;line-height:1.5;color:#b9c0d6;max-width:400px;text-wrap:pretty}
+.conn{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.doors .conn .eyebrow{margin-right:4px}
+.cchip{display:flex;align-items:center;gap:8px;border:1px solid #ffffff3d;border-radius:999px;padding:8px 16px 8px 12px;font-size:15px;color:#e8ecff}
+.cchip .mi{width:16px;height:16px}
 
 /* Cómo trabajamos */
 .timeline li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:20px}
@@ -130,9 +207,15 @@ ol,ul{margin:0;padding:0;list-style:none}
 .cta{max-width:1120px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(28px,6vw,80px);color:#e8ecff;display:flex;flex-direction:column;gap:28px;align-items:flex-start;
   background-image:radial-gradient(1px 1px at 6% 22%,#ffffffbb,transparent),radial-gradient(1px 1px at 18% 80%,#ffffff88,transparent),radial-gradient(1.5px 1.5px at 41% 14%,#ffffffaa,transparent),radial-gradient(1px 1px at 58% 70%,#ffffff77,transparent),radial-gradient(1px 1px at 77% 18%,#ffffffbb,transparent),radial-gradient(1.5px 1.5px at 90% 76%,#ffffff99,transparent),radial-gradient(ellipse 50% 90% at 85% 50%,#7cf5ff1f,transparent 70%)}
 .cta h2{font-size:clamp(34px,4.6vw,56px);line-height:1.05;letter-spacing:-.035em;font-weight:700;max-width:720px;text-wrap:balance}
-.cta p{font-size:18px;line-height:1.55;color:#b9c0d6;max-width:520px;text-wrap:pretty}
-.cta a{background:#7cf5ff;color:#05070f;padding:16px 28px;font-size:17px;font-weight:500}
-.cta a:hover{background:#e8ecff;color:#05070f}
+.cta p{font-size:18px;line-height:1.55;color:#b9c0d6;max-width:540px;text-wrap:pretty}
+.cta-actions{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.cta-btns{display:flex;flex-wrap:wrap;gap:12px}
+.cta-main{background:#7cf5ff;color:#05070f;padding:16px 28px;font-size:17px;font-weight:500}
+.cta-main:hover{background:#e8ecff;color:#05070f}
+.cta-wa{border:1px solid #ffffff4d;color:#e8ecff;padding:15px 24px;font-size:17px}
+.cta-wa:hover{border-color:#e8ecff;color:#e8ecff}
+.mail{font-size:15px;color:#b9c0d6;text-decoration:underline;text-decoration-color:#ffffff40;text-underline-offset:4px}
+.mail:hover{color:#e8ecff}
 
 footer{padding-top:28px;padding-bottom:40px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;font-size:14px;color:#5a6070}
 footer .word{letter-spacing:-.02em;color:#05070f}
@@ -152,7 +235,14 @@ footer span:last-child{margin-left:auto}
 </head>
 <body>
 
-<header class="wrap">
+<!-- Shared glyphs, reused with <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="g-mark" viewBox="-2 -2 92 92"><rect x="23" y="0" width="65" height="19" rx="3" fill="#e8ecff"/><rect x="0" y="0" width="19" height="88" rx="3" fill="#e8ecff"/><rect x="23" y="69" width="65" height="19" rx="3" fill="#e8ecff"/><rect x="69" y="46" width="19" height="19" rx="3" fill="#e8ecff"/><rect x="46" y="46" width="19" height="19" rx="3" fill="#7cf5ff"/></symbol>
+  <symbol id="g-src" viewBox="0 0 42 42"><rect width="19" height="19" rx="3" fill="#8a93ad"/><rect x="23" width="19" height="19" rx="3" fill="#8a93ad"/><rect y="23" width="19" height="19" rx="3" fill="#8a93ad"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#0a7f8c"/></symbol>
+</svg>
+
+<header class="top">
+ <div class="wrap topbar">
   <a href="#" class="logo" aria-label="Gremio Labs, inicio">
     <span class="tile"><svg width="20" height="20" viewBox="-2 -2 92 92" aria-hidden="true"><rect x="23" y="0" width="65" height="19" rx="3" fill="#e8ecff"/><rect x="0" y="0" width="19" height="88" rx="3" fill="#e8ecff"/><rect x="23" y="69" width="65" height="19" rx="3" fill="#e8ecff"/><rect x="69" y="46" width="19" height="19" rx="3" fill="#e8ecff"/><rect x="46" y="46" width="19" height="19" rx="3" fill="#7cf5ff"/></svg></span>
     <span class="word" style="font-size:22px"><b>gremio</b>labs</span>
@@ -163,6 +253,7 @@ footer span:last-child{margin-left:auto}
     <a href="#faq" class="link">Preguntas</a>
     <a href="#contacto" class="btn btn-ink" style="padding:10px 18px">Conversemos</a>
   </nav>
+ </div>
 </header>
 
 <main>
@@ -180,11 +271,94 @@ footer span:last-child{margin-left:auto}
     </div>
     <div class="hero-copy">
       <div class="eyebrow">Consultoría de inteligencia artificial</div>
-      <h1>IA hecha a la medida de tu empresa.</h1>
+      <h1 aria-label="IA hecha a la medida de tu empresa.">
+        <span aria-hidden="true">IA hecha a la medida de tu</span>
+        <span aria-hidden="true" class="words" id="words"><span>despacho.</span><span>refaccionaria.</span><span>equipo de ventas.</span><span>área de RH.</span><span class="on">empresa.</span></span>
+      </h1>
       <p class="lead">Diseñamos e implementamos soluciones de inteligencia artificial pensadas para tus procesos, tus datos y tu equipo. Nada genérico.</p>
       <div class="ctas">
         <a href="#contacto" class="btn btn-ink">Agenda una conversación</a>
         <a href="#como" class="btn btn-line">Cómo trabajamos</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="asi-se-ve" class="rule">
+    <div class="wrap in split" style="gap:40px 64px;align-items:start">
+      <div class="head">
+        <div class="eyebrow">Así se ve</div>
+        <h2 class="h2">Pregúntale como a un compañero. Te responde con datos.</h2>
+        <p class="intro">Cada respuesta sale de tu propia información y te dice de dónde la tomó.</p>
+      </div>
+      <div class="demo" id="demo">
+        <div class="tabs" role="tablist" aria-label="Ejemplos por área">
+          <button type="button" role="tab" aria-selected="true" aria-controls="c0">Contabilidad</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="c1">Ventas</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="c2">RH</button>
+        </div>
+        <div class="window">
+          <!-- All three conversations share one grid cell, so the window keeps the tallest one's height -->
+          <div class="convos">
+            <div class="convo active" id="c0" role="tabpanel">
+              <p class="q" data-s="1">¿Qué facturas PPD de septiembre siguen sin complemento de pago?</p>
+              <div class="bot">
+                <div class="who" data-s="2" data-fade>
+                  <span class="avatar"><svg width="14" height="14"><use href="#g-mark"/></svg></span>
+                  <span class="who-label"><span class="dots"><i></i><i></i><i></i></span><span data-s="3" data-fade>Asistente</span></span>
+                </div>
+                <div class="ans" data-s="3">
+                  <p>Encontré 4 facturas sin complemento de pago:</p>
+                  <div class="rows">
+                    <div><b>A-1182</b><span>Grupo Ruiz</span><span>$48,200</span></div>
+                    <div><b>A-1190</b><span>Transportes Lira</span><span>$12,750</span></div>
+                    <div><b>A-1201</b><span>Grupo Ruiz</span><span>$9,860</span></div>
+                    <div><b>A-1207</b><span>Ferretera del Norte</span><span>$31,400</span></div>
+                  </div>
+                </div>
+                <p class="src" data-s="4"><svg width="10" height="10"><use href="#g-src"/></svg><span>Fuente: CFDI emitidos, septiembre 2026 · Estados de cuenta</span></p>
+                <div data-s="5"><button type="button" tabindex="-1" class="act">Enviar recordatorio a los clientes</button></div>
+              </div>
+            </div>
+            <div class="convo" id="c1" role="tabpanel" aria-hidden="true">
+              <p class="q" data-s="1">¿Qué clientes ya deberían haber vuelto a comprar?</p>
+              <div class="bot">
+                <div class="who" data-s="2" data-fade>
+                  <span class="avatar"><svg width="14" height="14"><use href="#g-mark"/></svg></span>
+                  <span class="who-label"><span class="dots"><i></i><i></i><i></i></span><span data-s="3" data-fade>Asistente</span></span>
+                </div>
+                <div class="ans" data-s="3">
+                  <p>7 clientes van atrasados. Los más importantes:</p>
+                  <div class="rows">
+                    <div><b>Taller Hernández</b><span>compra cada 8 días</span><span>lleva 74</span></div>
+                    <div><b>Motos del Valle</b><span>compra cada 15 días</span><span>lleva 41</span></div>
+                    <div><b>Refaccionaria Ruiz</b><span>compra cada 20 días</span><span>lleva 33</span></div>
+                  </div>
+                </div>
+                <p class="src" data-s="4"><svg width="10" height="10"><use href="#g-src"/></svg><span>Fuente: Pedidos 2025–2026 · CRM</span></p>
+                <div data-s="5"><button type="button" tabindex="-1" class="act">Preparar mensajes de WhatsApp</button></div>
+              </div>
+            </div>
+            <div class="convo" id="c2" role="tabpanel" aria-hidden="true">
+              <p class="q" data-s="1">¿Cuántos días de vacaciones le quedan a Mariana?</p>
+              <div class="bot">
+                <div class="who" data-s="2" data-fade>
+                  <span class="avatar"><svg width="14" height="14"><use href="#g-mark"/></svg></span>
+                  <span class="who-label"><span class="dots"><i></i><i></i><i></i></span><span data-s="3" data-fade>Asistente</span></span>
+                </div>
+                <div class="ans" data-s="3">
+                  <p>A Mariana López le quedan 6 de sus 14 días. Su último periodo fue del 3 al 7 de julio.</p>
+                </div>
+                <p class="src" data-s="4"><svg width="10" height="10"><use href="#g-src"/></svg><span>Fuente: Expediente de personal · Control de vacaciones 2026</span></p>
+                <div data-s="5"><button type="button" tabindex="-1" class="act">Apartar del 20 al 24 de diciembre</button></div>
+              </div>
+            </div>
+          </div>
+          <div class="inputbar" aria-hidden="true">
+            <span>Escribe una pregunta…</span>
+            <svg width="14" height="14" viewBox="0 0 42 42"><rect width="19" height="19" rx="3" fill="#d9dce5"/><rect x="23" width="19" height="19" rx="3" fill="#d9dce5"/><rect y="23" width="19" height="19" rx="3" fill="#d9dce5"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#d9dce5"/></svg>
+          </div>
+        </div>
+        <p class="note">Ejemplo con datos ficticios.</p>
       </div>
     </div>
   </section>
@@ -281,6 +455,21 @@ footer span:last-child{margin-left:auto}
     </div>
   </section>
 
+  <section class="rule qsec">
+    <div class="wrap eyebrow">Pregúntale lo que sea</div>
+    <!-- Each track holds its list twice; sliding by -50% loops seamlessly -->
+    <div class="marquee">
+      <div class="track">
+        <div><span class="chip">¿Dónde está el contrato de arrendamiento de la bodega?</span><span class="chip">¿Cuánto le facturamos a Grupo Ruiz en 2025?</span><span class="chip">¿Qué e.firmas vencen este mes?</span><span class="chip">¿Quién aprobó la orden MPT-Z-342?</span><span class="chip">¿Qué piezas compra más el Taller Hernández?</span><span class="chip">¿Qué facturas PPD no tienen complemento de pago?</span><span class="chip">¿Cuál fue el producto más vendido en septiembre?</span><span class="chip">¿Qué clientes llevan más de 30 días sin comprar?</span></div>
+        <div aria-hidden="true"><span class="chip">¿Dónde está el contrato de arrendamiento de la bodega?</span><span class="chip">¿Cuánto le facturamos a Grupo Ruiz en 2025?</span><span class="chip">¿Qué e.firmas vencen este mes?</span><span class="chip">¿Quién aprobó la orden MPT-Z-342?</span><span class="chip">¿Qué piezas compra más el Taller Hernández?</span><span class="chip">¿Qué facturas PPD no tienen complemento de pago?</span><span class="chip">¿Cuál fue el producto más vendido en septiembre?</span><span class="chip">¿Qué clientes llevan más de 30 días sin comprar?</span></div>
+      </div>
+      <div class="track rev">
+        <div><span class="chip">¿Tenemos bujías para moto de 150 cc en Guadalajara?</span><span class="chip">¿Quién tiene incidencias esta quincena?</span><span class="chip">¿Qué proveedores nos subieron precios este año?</span><span class="chip">¿Cuándo vence el seguro de la flotilla?</span><span class="chip">¿Qué dice la política de viáticos sobre hospedaje?</span><span class="chip">Resume el último reporte de auditoría.</span><span class="chip">Arma el reporte mensual de ventas.</span><span class="chip">Compara las ventas de este trimestre contra el anterior.</span></div>
+        <div aria-hidden="true"><span class="chip">¿Tenemos bujías para moto de 150 cc en Guadalajara?</span><span class="chip">¿Quién tiene incidencias esta quincena?</span><span class="chip">¿Qué proveedores nos subieron precios este año?</span><span class="chip">¿Cuándo vence el seguro de la flotilla?</span><span class="chip">¿Qué dice la política de viáticos sobre hospedaje?</span><span class="chip">Resume el último reporte de auditoría.</span><span class="chip">Arma el reporte mensual de ventas.</span><span class="chip">Compara las ventas de este trimestre contra el anterior.</span></div>
+      </div>
+    </div>
+  </section>
+
   <section class="rule">
     <div class="wrap in">
       <div class="doors stars">
@@ -293,36 +482,44 @@ footer span:last-child{margin-left:auto}
         <div class="grid" style="--min:440px;--gap:16px">
           <div class="grid" style="--min:200px;--gap:16px">
             <div class="door">
-              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#7cf5ff"/><rect x="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/></svg>
+              <span class="ico" aria-hidden="true"><i class="mi" style="--i:url(icons/whatsapp.svg)"></i></span>
               <h3>WhatsApp</h3>
               <p>Pregunta desde el celular, como le escribirías a un compañero.</p>
             </div>
             <div class="door">
-              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" width="19" height="19" rx="3" fill="#7cf5ff"/><rect y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/></svg>
+              <span class="ico" aria-hidden="true"><i class="mi" style="--i:url(icons/messages-square.svg)"></i></span>
               <h3>Chat web</h3>
               <p>Un chat con tu marca y con historial de conversaciones.</p>
             </div>
           </div>
           <div class="grid" style="--min:200px;--gap:16px">
             <div class="door">
-              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect y="23" width="19" height="19" rx="3" fill="#7cf5ff"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/></svg>
+              <span class="ico" aria-hidden="true"><i class="mi" style="--i:url(icons/sparkles.svg)"></i></span>
               <h3>Tu asistente de IA</h3>
               <p>Un conector para Claude, ChatGPT, Gemini o Copilot. Si tu equipo ya paga una suscripción, la aprovecha.</p>
             </div>
             <div class="door">
-              <svg width="20" height="20" viewBox="0 0 42 42" aria-hidden="true"><rect width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect y="23" width="19" height="19" rx="3" fill="#e8ecff" opacity=".22"/><rect x="23" y="23" width="19" height="19" rx="3" fill="#7cf5ff"/></svg>
+              <span class="ico" aria-hidden="true"><i class="mi" style="--i:url(icons/chart-column.svg)"></i></span>
               <h3>Dashboard</h3>
               <p>Para quien prefiere ver la información en tablas y gráficas.</p>
             </div>
           </div>
         </div>
-        <p class="foot">Todas leen la misma información y respetan los mismos permisos.</p>
+        <div class="strip">
+          <p>Las cuatro leen la misma información y respetan los mismos permisos.</p>
+          <div class="conn">
+            <span class="eyebrow">Conectado a</span>
+            <span class="cchip"><i class="mi" style="--i:url(icons/file-text.svg)" aria-hidden="true"></i>Tus documentos</span>
+            <span class="cchip"><i class="mi" style="--i:url(icons/boxes.svg)" aria-hidden="true"></i>Tu ERP</span>
+            <span class="cchip"><i class="mi" style="--i:url(icons/database.svg)" aria-hidden="true"></i>Tus bases de datos</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="como" class="rule">
-    <div class="wrap in split">
+    <div class="wrap in split pin">
       <div class="head">
         <div class="eyebrow">Cómo trabajamos</div>
         <h2 class="h2">Cada empresa es distinta. Su IA también debería serlo.</h2>
@@ -362,7 +559,7 @@ footer span:last-child{margin-left:auto}
   </section>
 
   <section id="faq" class="rule">
-    <div class="wrap in split" style="gap:40px 64px">
+    <div class="wrap in split pin" style="gap:40px 64px">
       <div class="head">
         <div class="eyebrow">Preguntas frecuentes</div>
         <h2 class="h2">Lo que nos preguntan antes de empezar.</h2>
@@ -384,8 +581,15 @@ footer span:last-child{margin-left:auto}
   <section id="contacto">
     <div class="cta stars">
       <h2>¿Qué podría hacer la IA por tu empresa?</h2>
-      <p>Cuéntanos cómo trabajan hoy. En una primera conversación te diremos dónde vemos oportunidades, sin compromiso.</p>
-      <a href="mailto:hola@gremiolabs.com" class="btn">hola@gremiolabs.com</a>
+      <p>Cuéntanos cómo trabajan hoy. En una llamada de 30 minutos te decimos dónde vemos oportunidades y cómo se vería tu asistente, sin compromiso.</p>
+      <div class="cta-actions">
+        <div class="cta-btns">
+          <!-- TODO: booking link and WhatsApp number (https://wa.me/52XXXXXXXXXX) -->
+          <a href="#" class="btn cta-main">Agenda una llamada</a>
+          <a href="#" class="btn cta-wa">Escríbenos por WhatsApp</a>
+        </div>
+        <a href="mailto:hola@gremiolabs.com" class="mail">hola@gremiolabs.com</a>
+      </div>
     </div>
   </section>
 </main>
@@ -402,13 +606,61 @@ const replay = () => { const m = art.querySelector('svg'); m.replaceWith(m.clone
 art.addEventListener('click', replay);
 art.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); replay(); } });
 
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Sticky header: border and compact padding once the page scrolls.
+const topbar = document.querySelector('.top');
+const onScroll = () => topbar.classList.toggle('scrolled', scrollY > 8);
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// Rotating word in the H1. It starts on "empresa.", which is also the text without JS or motion.
+if (!reduce) {
+  const words = [...document.querySelectorAll('#words > span')];
+  let wi = words.length - 1;
+  setInterval(() => {
+    const prev = wi;
+    wi = (wi + 1) % words.length;
+    words.forEach((w, i) => { w.className = i === wi ? 'on' : i === prev ? 'out' : ''; });
+  }, 2400);
+}
+
+// Así se ve: tabs switch conversations. With motion on, each one plays like a live chat:
+// question → typing dots → answer → source → action.
+const demo = document.getElementById('demo');
+const tabs = [...demo.querySelectorAll('[role=tab]')];
+const convos = [...demo.querySelectorAll('.convo')];
+const animate = !reduce && 'IntersectionObserver' in window;
+let timers = [], seen = false;
+const step = (c, p) => {
+  c.querySelectorAll('[data-s]').forEach(el => el.classList.toggle('shown', el.dataset.s <= p));
+  c.classList.toggle('typing', p === 2);
+};
+function play(i) {
+  seen = true;
+  timers.forEach(clearTimeout);
+  tabs.forEach((t, j) => t.setAttribute('aria-selected', j === i));
+  convos.forEach((c, j) => { c.classList.toggle('active', j === i); c.setAttribute('aria-hidden', j !== i); });
+  if (!animate) return;
+  step(convos[i], 1);
+  timers = [[600, 2], [1500, 3], [1900, 4], [2300, 5]].map(([ms, p]) => setTimeout(() => step(convos[i], p), ms));
+}
+tabs.forEach((t, i) => t.addEventListener('click', () => play(i)));
+if (animate) {
+  demo.classList.add('js');
+  const dio = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) { dio.disconnect(); if (!seen) play(0); }
+  }, { threshold: 0.35 });
+  dio.observe(demo);
+}
+
 // Scroll reveal: each element fades in once, the first time it scrolls into view.
 // Anything already on the first screen is left alone; siblings are staggered.
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+if (!reduce && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.remove('reveal-pending'); io.unobserve(e.target); }
   }), { rootMargin: '0px 0px -12% 0px' });
-  const els = [...document.querySelectorAll('.head, .card, .areas > li, .door, .timeline > li, .col, .story > *, .faq details, .bubbles p, .doors, .cta')];
+  const els = [...document.querySelectorAll('.head, .window, .card, .areas > li, .qsec > *, .door, .strip, .timeline > li, .col, .story > *, .faq details, .bubbles p, .doors, .cta')];
   for (const el of els) {
     if (el.getBoundingClientRect().top < innerHeight * 0.9) continue;
     const i = [...el.parentElement.children].filter(c => els.includes(c)).indexOf(el);
