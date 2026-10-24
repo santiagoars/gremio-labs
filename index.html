@@ -204,12 +204,30 @@ ol,ul{margin:0;padding:0;list-style:none}
 .story p{font-size:clamp(20px,2.2vw,26px);line-height:1.45;letter-spacing:-.01em;text-wrap:pretty}
 
 #contacto{padding:0 32px 32px}
-.cta{max-width:1120px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(28px,6vw,80px);color:#e8ecff;display:flex;flex-direction:column;gap:28px;align-items:flex-start;
+.cta{max-width:1120px;margin:0 auto;padding:clamp(48px,7vw,96px) clamp(28px,6vw,80px);color:#e8ecff;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:40px 64px;align-items:start;
   background-image:radial-gradient(1px 1px at 6% 22%,#ffffffbb,transparent),radial-gradient(1px 1px at 18% 80%,#ffffff88,transparent),radial-gradient(1.5px 1.5px at 41% 14%,#ffffffaa,transparent),radial-gradient(1px 1px at 58% 70%,#ffffff77,transparent),radial-gradient(1px 1px at 77% 18%,#ffffffbb,transparent),radial-gradient(1.5px 1.5px at 90% 76%,#ffffff99,transparent),radial-gradient(ellipse 50% 90% at 85% 50%,#7cf5ff1f,transparent 70%)}
-.cta h2{font-size:clamp(34px,4.6vw,56px);line-height:1.05;letter-spacing:-.035em;font-weight:700;max-width:720px;text-wrap:balance}
-.cta p{font-size:18px;line-height:1.55;color:#b9c0d6;max-width:540px;text-wrap:pretty}
-.cta-actions{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
-.cta-btns{display:flex;flex-wrap:wrap;gap:12px}
+.cta-copy{display:flex;flex-direction:column;gap:28px;align-items:flex-start}
+.cta h2{font-size:clamp(34px,4vw,48px);line-height:1.05;letter-spacing:-.035em;font-weight:700;text-wrap:balance}
+.cta-copy p{font-size:18px;line-height:1.55;color:#b9c0d6;text-wrap:pretty}
+.cta-alt{display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px}
+/* Contact form */
+.cta-form{display:flex;flex-direction:column;gap:16px;align-items:flex-start;min-width:0}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px;width:100%}
+.fields label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:#b9c0d6}
+.fields label i{font-style:normal;color:#8a93ad}
+.fields .full{grid-column:1/-1}
+.fields input,.fields textarea{font:inherit;font-size:16px;color:#e8ecff;background:#ffffff0a;border:1px solid #ffffff3d;border-radius:14px;padding:12px 14px;width:100%}
+.fields textarea{resize:vertical;min-height:110px}
+.fields input:focus,.fields textarea:focus{outline:none;border-color:#7cf5ff}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cta-form button{font:inherit;border:0;cursor:pointer}
+.cta-form button[disabled]{opacity:.6;cursor:progress}
+.form-status{font-size:15px;line-height:1.5;color:#b9c0d6;min-height:1.5em}
+.form-done{font-size:18px;line-height:1.55;color:#e8ecff}
+/* Without JS the server redirects to #gracias / #error-contacto, shown with :target */
+#gracias,#error-contacto{display:none}
+#gracias:target,#error-contacto:target,.sent #gracias{display:block}
+.sent>:not(#gracias){display:none}
 .cta-main{background:#7cf5ff;color:#05070f;padding:16px 28px;font-size:17px;font-weight:500}
 .cta-main:hover{background:#e8ecff;color:#05070f}
 .cta-wa{border:1px solid #ffffff4d;color:#e8ecff;padding:15px 24px;font-size:17px}
@@ -580,16 +598,30 @@ footer span:last-child{margin-left:auto}
 
   <section id="contacto">
     <div class="cta stars">
-      <h2>¿Qué podría hacer la IA por tu empresa?</h2>
-      <p>Cuéntanos cómo trabajan hoy. En una llamada de 30 minutos te decimos dónde vemos oportunidades y cómo se vería tu asistente, sin compromiso.</p>
-      <div class="cta-actions">
-        <div class="cta-btns">
-          <!-- TODO: booking link and WhatsApp number (https://wa.me/52XXXXXXXXXX) -->
-          <a href="#" class="btn cta-main">Agenda una llamada</a>
+      <div class="cta-copy">
+        <h2>¿Qué podría hacer la IA por tu empresa?</h2>
+        <p>Cuéntanos cómo trabajan hoy. En una llamada de 30 minutos te decimos dónde vemos oportunidades y cómo se vería tu asistente, sin compromiso.</p>
+        <div class="cta-alt">
+          <!-- TODO: WhatsApp number (https://wa.me/52XXXXXXXXXX) -->
           <a href="#" class="btn cta-wa">Escríbenos por WhatsApp</a>
+          <a href="mailto:info@gremiolabs.com" class="mail">info@gremiolabs.com</a>
         </div>
-        <a href="mailto:hola@gremiolabs.com" class="mail">hola@gremiolabs.com</a>
       </div>
+      <form class="cta-form" id="contact-form" action="/api/contact" method="post">
+        <div class="fields">
+          <label><span>Nombre</span><input name="nombre" required maxlength="100" autocomplete="name"></label>
+          <label><span>Correo</span><input name="correo" type="email" required maxlength="200" autocomplete="email"></label>
+          <label><span>Empresa <i>(opcional)</i></span><input name="empresa" maxlength="150" autocomplete="organization"></label>
+          <label><span>WhatsApp o teléfono <i>(opcional)</i></span><input name="telefono" type="tel" maxlength="50" autocomplete="tel"></label>
+          <label class="full"><span>¿Qué te gustaría resolver? <i>(opcional)</i></span><textarea name="mensaje" rows="4" maxlength="3000"></textarea></label>
+        </div>
+        <!-- Honeypot: hidden from people, bots fill it and get silently dropped -->
+        <input name="sitio" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn cta-main">Agendar conversación</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p id="gracias" class="form-done">¡Gracias! Recibimos tu mensaje y te escribimos pronto para agendar la llamada.</p>
+        <p id="error-contacto" class="form-status">No pudimos enviar tu mensaje. Escríbenos a info@gremiolabs.com.</p>
+      </form>
     </div>
   </section>
 </main>
@@ -653,6 +685,30 @@ if (animate) {
   }, { threshold: 0.35 });
   dio.observe(demo);
 }
+
+// Contact form: send without leaving the page. Without JS the form still posts,
+// and the server redirects back to #gracias or #error-contacto.
+const form = document.getElementById('contact-form');
+const formStatus = form.querySelector('.form-status');
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const button = form.querySelector('button[type=submit]');
+  button.disabled = true;
+  formStatus.textContent = 'Enviando…';
+  try {
+    const r = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form))),
+    });
+    const out = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(out.error);
+    form.classList.add('sent');
+  } catch (err) {
+    formStatus.textContent = `${err.message || 'No pudimos enviar tu mensaje.'} También puedes escribirnos a info@gremiolabs.com.`;
+    button.disabled = false;
+  }
+});
 
 // Scroll reveal: each element fades in once, the first time it scrolls into view.
 // Anything already on the first screen is left alone; siblings are staggered.
