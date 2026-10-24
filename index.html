@@ -235,6 +235,11 @@ ol,ul{margin:0;padding:0;list-style:none}
 /* One line on normal phones; only very narrow screens (<340px) let the label wrap */
 @media (min-width:340px){.cta-wa{white-space:nowrap;padding-left:clamp(18px,5vw,24px);padding-right:clamp(18px,5vw,24px)}}
 .cta-wa:hover{border-color:#e8ecff;color:#e8ecff}
+/* Floating WhatsApp button; it steps aside while the contact panel is on screen */
+.wa-float{position:fixed;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:30;width:56px;height:56px;border-radius:50%;background:#05070f;border:1px solid #ffffff24;display:flex;align-items:center;justify-content:center;transition:opacity .25s ease,transform .25s ease}
+.wa-float:hover{background:#1a2033}
+.wa-float .mi{width:26px;height:26px}
+.wa-float.away{opacity:0;transform:translateY(12px);pointer-events:none}
 .mail{font-size:15px;color:#b9c0d6;text-decoration:underline;text-decoration-color:#ffffff40;text-underline-offset:4px}
 .mail:hover{color:#e8ecff}
 
@@ -628,6 +633,8 @@ footer span:last-child{margin-left:auto}
   </section>
 </main>
 
+<a href="https://wa.me/19086412322?text=Hola%2C%20vengo%20de%20gremiolabs.com%20y%20me%20gustar%C3%ADa%20agendar%20una%20conversaci%C3%B3n." class="wa-float" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><i class="mi" style="--i:url(icons/whatsapp.svg)" aria-hidden="true"></i></a>
+
 <footer class="wrap">
   <span class="word"><b>gremio</b>labs</span>
   <span>© 2026 Gremio Labs</span>
@@ -711,6 +718,13 @@ form.addEventListener('submit', async e => {
     button.disabled = false;
   }
 });
+
+// Floating WhatsApp button: hide it while the contact panel (which has its own WhatsApp button) is visible.
+const waFloat = document.querySelector('.wa-float');
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(([e]) => waFloat.classList.toggle('away', e.isIntersecting))
+    .observe(document.getElementById('contacto'));
+}
 
 // Scroll reveal: each element fades in once, the first time it scrolls into view.
 // Anything already on the first screen is left alone; siblings are staggered.
