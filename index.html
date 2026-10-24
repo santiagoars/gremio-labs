@@ -230,7 +230,10 @@ ol,ul{margin:0;padding:0;list-style:none}
 .sent>:not(#gracias){display:none}
 .cta-main{background:#7cf5ff;color:#05070f;padding:16px 28px;font-size:17px;font-weight:500}
 .cta-main:hover{background:#e8ecff;color:#05070f}
-.cta-wa{border:1px solid #ffffff4d;color:#e8ecff;padding:15px 24px;font-size:17px}
+.cta-wa{display:inline-flex;align-items:center;gap:10px;border:1px solid #ffffff4d;color:#e8ecff;padding:15px 24px;font-size:17px}
+.cta-wa .mi{width:18px;height:18px}
+/* One line on normal phones; only very narrow screens (<340px) let the label wrap */
+@media (min-width:340px){.cta-wa{white-space:nowrap;padding-left:clamp(18px,5vw,24px);padding-right:clamp(18px,5vw,24px)}}
 .cta-wa:hover{border-color:#e8ecff;color:#e8ecff}
 .mail{font-size:15px;color:#b9c0d6;text-decoration:underline;text-decoration-color:#ffffff40;text-underline-offset:4px}
 .mail:hover{color:#e8ecff}
@@ -602,7 +605,7 @@ footer span:last-child{margin-left:auto}
         <h2>¿Qué podría hacer la IA por tu empresa?</h2>
         <p>Cuéntanos cómo trabajan hoy. En una llamada de 30 minutos te decimos dónde vemos oportunidades y cómo se vería tu asistente, sin compromiso.</p>
         <div class="cta-alt">
-          <a href="https://wa.me/19086412322?text=Hola%2C%20vengo%20de%20gremiolabs.com%20y%20me%20gustar%C3%ADa%20agendar%20una%20conversaci%C3%B3n." class="btn cta-wa" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+          <a href="https://wa.me/19086412322?text=Hola%2C%20vengo%20de%20gremiolabs.com%20y%20me%20gustar%C3%ADa%20agendar%20una%20conversaci%C3%B3n." class="btn cta-wa" target="_blank" rel="noopener"><i class="mi" style="--i:url(icons/whatsapp.svg)" aria-hidden="true"></i>Escríbenos por WhatsApp</a>
           <a href="mailto:info@gremiolabs.com" class="mail">info@gremiolabs.com</a>
         </div>
       </div>
