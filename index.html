@@ -273,7 +273,7 @@ footer span:last-child{margin-left:auto}
       <div class="eyebrow">Consultoría de inteligencia artificial</div>
       <h1 aria-label="IA hecha a la medida de tu empresa.">
         <span aria-hidden="true">IA hecha a la medida de tu</span>
-        <span aria-hidden="true" class="words" id="words"><span>despacho.</span><span>refaccionaria.</span><span>equipo de ventas.</span><span>área de RH.</span><span class="on">empresa.</span></span>
+        <span aria-hidden="true" class="words" id="words"><span class="on">empresa.</span><span>despacho.</span><span>equipo de ventas.</span><span>área de RH.</span><span>operación.</span><span>área legal.</span></span>
       </h1>
       <p class="lead">Diseñamos e implementamos soluciones de inteligencia artificial pensadas para tus procesos, tus datos y tu equipo. Nada genérico.</p>
       <div class="ctas">
@@ -617,7 +617,7 @@ onScroll();
 // Rotating word in the H1. It starts on "empresa.", which is also the text without JS or motion.
 if (!reduce) {
   const words = [...document.querySelectorAll('#words > span')];
-  let wi = words.length - 1;
+  let wi = 0;
   setInterval(() => {
     const prev = wi;
     wi = (wi + 1) % words.length;
